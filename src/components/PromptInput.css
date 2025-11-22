@@ -1,0 +1,319 @@
+.ai-prompt-i {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 800px;
+  padding: 18px 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(101, 99, 255, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  z-index: 100;
+  animation: inputSlideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
+}
+
+@keyframes inputSlideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.ai-prompt-i:focus-within {
+  border-color: rgba(101, 99, 255, 0.6);
+  box-shadow: 
+    0 12px 40px rgba(101, 99, 255, 0.2),
+    0 0 0 1px rgba(101, 99, 255, 0.2) inset;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.animated-border {
+  flex: 1;
+  position: relative;
+}
+
+.user-input {
+  width: 100%;
+  min-height: 50px;
+  max-height: 300px;
+  padding: 14px 18px;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  font-size: 16px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.6;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.95);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  animation: inputFadeIn 0.4s ease-out;
+}
+
+@keyframes inputFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.user-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+.user-input:focus {
+  outline: none;
+  border-color: rgba(101, 99, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 0 0 3px rgba(101, 99, 255, 0.1),
+    inset 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: scale(1.01);
+}
+
+.user-input:focus::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.user-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.user-input::-webkit-scrollbar {
+  width: 6px;
+}
+
+.user-input::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.user-input::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #6563FF, #91a2ff);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.user-input::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #7a78ff, #a5b4ff);
+}
+
+.button-attribute {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.add-element {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  font-weight: 300;
+  position: relative;
+  overflow: hidden;
+}
+
+.add-element::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.add-element:hover:not(:disabled)::before {
+  width: 100px;
+  height: 100px;
+}
+
+.add-element:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1) rotate(90deg);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.add-element:active:not(:disabled) {
+  transform: scale(1.05) rotate(90deg);
+}
+
+.add-element:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.send {
+  padding: 14px 28px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background: linear-gradient(135deg, #6563FF 0%, #91a2ff 100%);
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  min-width: 90px;
+  height: 50px;
+  box-shadow: 0 4px 15px rgba(101, 99, 255, 0.4);
+}
+
+.send::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.send:hover::before {
+  left: 100%;
+}
+
+.send::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #7a78ff 0%, #a5b4ff 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  border-radius: 14px;
+}
+
+.send:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(101, 99, 255, 0.5);
+}
+
+.send:hover:not(:disabled)::after {
+  opacity: 1;
+}
+
+.send:active:not(:disabled) {
+  transform: translateY(0) scale(1.02);
+  box-shadow: 0 4px 15px rgba(101, 99, 255, 0.4);
+}
+
+.send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 8px rgba(101, 99, 255, 0.2);
+}
+
+.send:disabled:hover::before {
+  left: -100%;
+}
+
+/* Loading state animation */
+.send:not(:disabled)::after {
+  animation: buttonPulse 2s ease-in-out infinite;
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ai-prompt-i {
+    width: 95%;
+    padding: 14px 16px;
+    bottom: 20px;
+  }
+
+  .user-input {
+    font-size: 15px;
+    padding: 12px 16px;
+    min-height: 45px;
+  }
+
+  .add-element {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+
+  .send {
+    padding: 12px 24px;
+    font-size: 14px;
+    height: 45px;
+    min-width: 80px;
+  }
+}
+
+/* Focus ring animation */
+.user-input:focus {
+  animation: focusRing 0.3s ease-out;
+}
+
+@keyframes focusRing {
+  0% {
+    box-shadow: 
+      0 0 0 0 rgba(101, 99, 255, 0.4),
+      inset 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    box-shadow: 
+      0 0 0 3px rgba(101, 99, 255, 0.1),
+      inset 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
