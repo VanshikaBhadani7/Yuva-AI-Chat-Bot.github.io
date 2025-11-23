@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -7,7 +8,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Load environment variables FIRST, before any other imports
-// Explicitly load from backend directory
 dotenv.config({ path: join(__dirname, '.env') });
 
 // Log loaded environment variables (without exposing keys)
@@ -22,14 +22,31 @@ import cors from 'cors';
 import chatRoutes from './routes/chat.js';
 
 const app = express();
+// eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 5000;
 
-// Middleware
+// CORS - Secure and flexible for both local dev and deployment
+const allowedOrigins = [
+  'http://localhost:5173',                      // for local dev
+  'http://localhost:3000',                      // (optional for create-react-app users)
+  'https://vanshikabhadani7.github.io',         // your GitHub Pages domain (adjust if different)
+];
+// Set up CORS middleware
 app.use(cors({
-  origin: '*',
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,  // recommended if you use cookies/sessions
 }));
+
 app.use(express.json());
 
 // Log all requests
@@ -50,4 +67,3 @@ app.get('/api/health', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Yuva backend server running on port ${PORT}`);
 });
-

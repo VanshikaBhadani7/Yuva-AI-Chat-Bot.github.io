@@ -6,9 +6,15 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
-  "keywords": ["ai", "chatbot", "openai"],
+  "keywords": [
+    "ai",
+    "chatbot",
+    "openai"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -18,4 +24,3 @@
     "openai": "^4.47.1"
   }
 }
-
